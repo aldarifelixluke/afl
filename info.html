@@ -14,7 +14,7 @@ async function SavePhoto(inp)
     setTimeout(() => ctrl.abort(), 5000);
     
     try {
-       let r = await fetch('/upload/image', 
+       let r = await fetch('upload/', 
          {method: "POST", body: formData, signal: ctrl.signal}); 
        console.log('HTTP response code:',r.status); 
     } catch(e) {
