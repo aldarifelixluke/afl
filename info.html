@@ -1,25 +1,13 @@
-<input id="image-file" type="file" onchange="SavePhoto(this)" >
-<br><br>
+<input id="fileupload" type="file" name="fileupload" />
+<button id="upload-button" onclick="uploadFile()"> Upload </button>
 <script>
-async function SavePhoto(inp) 
-{
-    let user = { name:'john', age:34 };
-    let formData = new FormData();
-    let photo = inp.files[0];      
-         
-    formData.append("photo", photo);
-    formData.append("user", JSON.stringify(user)); 
-    
-    const ctrl = new AbortController()    // timeout
-    setTimeout(() => ctrl.abort(), 5000);
-    
-    try {
-       let r = await fetch('upload/', 
-         {method: "POST", body: formData, signal: ctrl.signal}); 
-       console.log('HTTP response code:',r.status); 
-    } catch(e) {
-       console.log('Huston we have problem...:', e);
-    }
-    
+async function uploadFile() {
+    let formData = new FormData();           
+    formData.append("file", fileupload.files[0]);
+    await fetch('upload/', {
+      method: "POST", 
+      body: formData
+    });    
+    alert('The file has been uploaded successfully.');
 }
 </script>
